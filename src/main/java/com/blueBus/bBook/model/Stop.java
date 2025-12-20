@@ -20,7 +20,7 @@ public class Stop {
     private String stopName;
     private int seqNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "route_id")
-    private Stop stop;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id",nullable = false)
+    private Route route;
 }
