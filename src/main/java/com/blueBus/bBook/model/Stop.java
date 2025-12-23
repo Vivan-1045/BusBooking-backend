@@ -20,6 +20,8 @@ public class Stop {
     private String stopName;
     private int seqNumber;
 
+    private double distanceFromPrev;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "route_id",nullable = false)
     private Route route;

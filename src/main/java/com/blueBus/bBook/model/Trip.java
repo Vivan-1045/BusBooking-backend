@@ -1,12 +1,15 @@
 package com.blueBus.bBook.model;
 
+import com.blueBus.bBook.utility.TripStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Data
@@ -19,16 +22,23 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "bus_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bus_id",nullable = false)
     private Bus bus;
 
-    @ManyToOne
-    @JoinColumn(name = "route_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id",nullable = false)
     private Route route;
 
-    private LocalDateTime departTime;
-    private LocalDateTime arrivalTime;
+    @Column(name = "journey_date",nullable = false)
+    private LocalDate journeyDate;
 
-    private double pricePerSeat;
+    @Column(name = "depart_time",nullable = false)
+    private LocalTime departTime;
+
+    @Column(name = "arrival_time")
+    private LocalTime arrivalTime;
+
+    @Enumerated(EnumType.STRING)
+    private TripStatus status;
 }

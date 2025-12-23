@@ -4,14 +4,19 @@ import com.blueBus.bBook.model.Route;
 import com.blueBus.bBook.model.Stop;
 import com.blueBus.bBook.repository.RouteRepo;
 import com.blueBus.bBook.repository.StopRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
+@Transactional
 public class RouteService {
-    @Autowired
+
     private RouteRepo routeRepo;
-    @Autowired
     private StopRepo stopRepo;
 
     //Method to create Route
@@ -60,6 +65,7 @@ public class RouteService {
 
 
     //Method to get All stops of a route
+    @Transactional(readOnly = true)
     public List<Stop> getStopByRoute(Long routeId){
         if (!routeRepo.existsById(routeId)){
             throw new IllegalArgumentException("Route not found");
